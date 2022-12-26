@@ -22,7 +22,9 @@ class DirectorSerializer(serializers.ModelSerializer):
 
 
 class ReviewSerializer(serializers.ModelSerializer):
-    text = serializers.CharField()
+    text = serializers.CharField(max_length=200,
+                                 min_length=10,
+                                 )
     movie_id = serializers.CharField()
     stars = serializers.IntegerField(min_value=1,
                                      max_value=5,
@@ -43,8 +45,12 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 class MovieSerializer(serializers.ModelSerializer):
     reviews = ReviewSerializer(many=True)
-    title = serializers.CharField()
-    description = serializers.CharField()
+    title = serializers.CharField(min_length=2,
+                                  max_length=20,
+                                  )
+    description = serializers.CharField(max_length=400,
+                                        min_length=5,
+                                        )
     duration = serializers.CharField()
     director_id = serializers.CharField()
     # stars_id = serializers.IntegerField()
